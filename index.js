@@ -54,6 +54,21 @@ app.patch("/api/product/:id", async (req, res) => {
   }
 });
 
+//delete a product by Id
+app.delete("/api/product/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found!" });
+    }
+
+    res.status(200).json({ message: "Product deleted successfully!" });
+  } catch (error) {
+    res.send(500).json({ message: error.message });
+  }
+});
+
 //add product data to the database
 app.post("/api/products", (req, res) => {
   try {
