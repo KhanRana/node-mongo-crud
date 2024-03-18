@@ -1,17 +1,10 @@
 const express = require("express");
 const { Product } = require("../models/product.model");
+const { getProducts } = require("../controllers/product.controller");
 const router = express.Router();
 //get data from the database
 
-router.get("/", (req, res) => {
-  try {
-    Product.find({}).then((data) => {
-      res.status(200).json(data);
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+router.get("/", getProducts);
 
 //get product by its id
 router.get("/:id", async (req, res) => {
