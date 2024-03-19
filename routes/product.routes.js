@@ -1,6 +1,6 @@
 const express = require("express");
 const { Product } = require("../models/product.model");
-const { getProducts, getProductById } = require("../controllers/product.controller");
+const { getProducts, getProductById, updateProduct } = require("../controllers/product.controller");
 const router = express.Router();
 //get data from the database
 
@@ -10,21 +10,8 @@ router.get("/", getProducts);
 router.get("/:id", getProductById)
 
 //update a product by id
-router.patch("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findByIdAndUpdate(id, req.body);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found!" });
-    }
-
-    Product.findById(id).then((data) => res.status(200).json(data));
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
+router.patch("/:id", updateProduct)
+  
 //delete a product by Id
 router.delete("/:id", async (req, res) => {
   try {
