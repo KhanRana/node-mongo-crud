@@ -1,24 +1,13 @@
 const express = require("express");
 const { Product } = require("../models/product.model");
-const { getProducts } = require("../controllers/product.controller");
+const { getProducts, getProductById } = require("../controllers/product.controller");
 const router = express.Router();
 //get data from the database
 
 router.get("/", getProducts);
 
 //get product by its id
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found!" });
-    }
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+router.get("/:id", getProductById)
 
 //update a product by id
 router.patch("/:id", async (req, res) => {
