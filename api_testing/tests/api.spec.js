@@ -31,8 +31,8 @@ test.only('Get product by id', async ({ request }) => {
 test('should create a product', async ({ request }) => {
   const newProduct = await request.post(`/api/products`, {
     data:   {
-    name: "chicken korma",
-    price: 12.99,
+    name: "Fish & Chips",
+    price: 11.99,
   },
   });
   expect(newProduct.ok()).toBeTruthy();
@@ -47,10 +47,11 @@ test('should create a product', async ({ request }) => {
 
 test('should delete a product', async ({ request }) => {
   // Act
-  const response = await request.delete(`http://localhost:3000/api/products/:id`, {
-    data:   {
-    id: "66225323bec65a30fdd37c2d",
-  },
+  const response = await request.delete(`http://localhost:3000/api/products/6624456d14b91f56fc2c8650`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+  }
   });
 
   // Assert
